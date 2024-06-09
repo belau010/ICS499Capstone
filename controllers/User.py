@@ -1,4 +1,4 @@
-def initializeUserController():
+def initializeUserController(app, db):
     print("initializing user controller...")
     # this is where controllers will go
     # for example, if the user logs in, it will hit a route with

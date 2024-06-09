@@ -1,4 +1,4 @@
 from controllers.User import initializeUserController
 
-def initializeControllers(db):
-    initializeUserController(db)
+def initializeControllers(app, db):
+    initializeUserController(app, db)
