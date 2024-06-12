@@ -9,7 +9,7 @@ def initializeUserModel(db):
         id = db.Column(db.Integer, primary_key = True)
         email = db.Column(db.String(255), unique = True, nullable = False)
         password = db.Column(db.String(255), nullable = False)
-        firstName = db.Colum(db.String(255), nullable = False)
+        firstName = db.Column(db.String(255), nullable = False)
         lastName = db.Column(db.String(255), nullable = False)
         noShowDays = db.Column(db.Integer, default = 0)
         callOutDays = db.Column(db.Integer, default = 0)
