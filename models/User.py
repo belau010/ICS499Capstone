@@ -13,7 +13,7 @@ def initializeUserModel(db):
         lastName = db.Column(db.String(255), nullable = False)
         noShowDays = db.Column(db.Integer, default = 0)
         callOutDays = db.Column(db.Integer, default = 0)
-        payRate = db.Column(db.Numeric(10, 2), nullable = False)
+        payRate = db.Column(db.Numeric(10, 2), default = 15.0, nullable = False)
         position = db.Column(db.Enum(Position), default = Position.ASSOCIATE, nullable = False)
 
     db.MODELS["User"] = User

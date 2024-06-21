@@ -1,5 +1,7 @@
 <script>
   import axios from "axios";
+  export let setView;
+
 
   // @ts-nocheck
 
@@ -31,6 +33,10 @@
 
   function onRegisterClick() {
     axios.post("http://127.0.0.1:5000/user/register", {email, firstName, lastName, password})
+  }
+
+  function onLogInClick() {
+    setView("logIn")
   }
 </script>
 
@@ -73,6 +79,10 @@
     <br />
     <button on:click={onRegisterClick}>
       Register
+    </button>
+    <br />
+    <button on:click={onLogInClick}>
+      Back
     </button>
   </div>
 </main>

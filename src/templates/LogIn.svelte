@@ -1,4 +1,7 @@
 <script>
+  import axios from "axios";
+  export let setView;
+
   // @ts-nocheck
 
   let email = "";
@@ -10,6 +13,14 @@
 
   function onPasswordInput(event) {
     password = event.target.value;
+  }
+
+  function onLogInClick() {
+    axios.post("http://127.0.0.1:5000/user/logIn", { email, password });
+  }
+
+  function onCreateAccountClick() {
+    setView("register");
   }
 </script>
 
@@ -28,11 +39,15 @@
       value={password}
       on:input={onPasswordInput}
     />
+    <br />
+    <button on:click={onLogInClick}> Log In </button>
+    <br />
+    <button on:click={onCreateAccountClick}> Create Account </button>
   </div>
 </main>
 
 <style>
-    #log-in-container {
-        padding: 16px;
-    }
+  #log-in-container {
+    padding: 16px;
+  }
 </style>
