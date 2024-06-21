@@ -15,6 +15,7 @@ dist-ssr
 # Editor directories and files
 models/__pycache__
 venv/*
+flask_session/*
 .vscode/*
 !.vscode/extensions.json
 .idea
