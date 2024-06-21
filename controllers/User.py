@@ -16,6 +16,10 @@ def initializeUserController(app, db):
         password = request.json.get("password")
 
         hashedPassword = generate_password_hash(password, method='pbkdf2:sha512', salt_length=8)
-
-        newUser = User(email=email,password=hashedPassword,firstName=firstName,lastName=lastName)
+        try:
+            newUser = User(email=email,password=hashedPassword,firstName=firstName,lastName=lastName)
+            db.session.add(newUser)
+            db.session.commit()
+        except Exception as e:
+            print(str(e))
         return jsonify(True)
