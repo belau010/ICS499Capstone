@@ -2,7 +2,6 @@
   import axios from "axios";
   export let setView;
 
-
   // @ts-nocheck
 
   let email = "";
@@ -32,11 +31,26 @@
   }
 
   function onRegisterClick() {
-    axios.post("http://127.0.0.1:5000/user/register", {email, firstName, lastName, password})
+    axios.post("http://127.0.0.1:5000/user/register", {
+      email,
+      firstName,
+      lastName,
+      password,
+    })
+    .then((response) => {
+      console.log(response.data);
+      if (response.data.success) {
+        alert("Registration successful!");
+        setView("logIn");
+      } else {
+        alert("Registration failed: E-mail address already in use");
+
+      }
+    });
   }
 
   function onLogInClick() {
-    setView("logIn")
+    setView("logIn");
   }
 </script>
 
@@ -77,13 +91,9 @@
       on:input={onVerifyPasswordInput}
     />
     <br />
-    <button on:click={onRegisterClick}>
-      Register
-    </button>
+    <button on:click={onRegisterClick}> Register </button>
     <br />
-    <button on:click={onLogInClick}>
-      Back
-    </button>
+    <button on:click={onLogInClick}> Back </button>
   </div>
 </main>
 
