@@ -1,6 +1,6 @@
 <script>
-  import axios from "axios";
-  export let setView;
+  import API from "../API";
+  import { currentView } from "../state";
 
   // @ts-nocheck
 
@@ -16,19 +16,11 @@
   }
 
   function onLogInClick() {
-    axios
-      .post("http://127.0.0.1:5000/user/logIn", { email, password })
-      .then((response) => {
-        if (response.data.success) {
-          setView("dashboard");
-        } else {
-          alert("Log in failed: " + response.data.message);
-        }
-      });
+    API.user.logIn(email, password);
   }
 
   function onCreateAccountClick() {
-    setView("register");
+    currentView.set("register");
   }
 </script>
 

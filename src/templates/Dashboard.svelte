@@ -1,10 +1,8 @@
 <script>
-  import axios from "axios";
+  import API from "../API";
 
   function onLogOutClick() {
-    axios.delete("http://127.0.0.1:5000/user/logOut").then(()=>{
-        window.location.href = "/"
-    })
+    API.user.logOut();
   }
 </script>
 

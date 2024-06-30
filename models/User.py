@@ -16,5 +16,11 @@ def initializeUserModel(db):
         payRate = db.Column(db.Numeric(10, 2), default = 15.0, nullable = False)
         position = db.Column(db.Enum(Position), default = Position.ASSOCIATE, nullable = False)
 
+        def toDict(self):
+            columns = self.__table__.columns.keys()
+            result = {column: getattr(self, column) for column in columns}
+            result["position"] = self.position.name if self.position else None
+            return result 
+
     db.MODELS["User"] = User
     

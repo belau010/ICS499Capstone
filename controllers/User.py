@@ -49,4 +49,15 @@ def initializeUserController(app, db):
     @app.route('/user/logOut', methods = ['DELETE'])
     def logOut():
         session.pop("user")
+
         return jsonify({})
+    
+    @app.route('/user/search', methods = ['GET'])
+    def search():
+        lastName = request.args.get('lastName')
+        users = User.query.filter(User.lastName.like(f'%{lastName}%')).all()
+        response = []
+        for user in users:
+            print("!")
+            response.append(user.toDict())
+        return jsonify({"success": True, "users": response})

@@ -1,6 +1,6 @@
 <script>
-  import axios from "axios";
-  export let setView;
+  import { currentView } from "../state";
+  import API from "../API";
 
   // @ts-nocheck
 
@@ -31,26 +31,11 @@
   }
 
   function onRegisterClick() {
-    axios.post("http://127.0.0.1:5000/user/register", {
-      email,
-      firstName,
-      lastName,
-      password,
-    })
-    .then((response) => {
-      console.log(response.data);
-      if (response.data.success) {
-        alert("Registration successful!");
-        setView("logIn");
-      } else {
-        alert("Registration failed: E-mail address already in use");
-
-      }
-    });
+    API.user.register(email, firstName, lastName, password);
   }
 
   function onLogInClick() {
-    setView("logIn");
+    currentView.set("logIn");
   }
 </script>
 
