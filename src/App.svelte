@@ -6,6 +6,7 @@
   import Register from "./templates/Register.svelte";
   import ScheduleShift from "./templates/ScheduleShift.svelte"
   import API from "./API";
+  import NavigationBar from "./components/NavigationBar.svelte";
 
   onMount(() => {
     API.init();
@@ -13,6 +14,7 @@
 </script>
 
 <main>
+  <NavigationBar />
   {#if $currentView === "register"}
     <Register />
   {:else if $currentView === "logIn"}
