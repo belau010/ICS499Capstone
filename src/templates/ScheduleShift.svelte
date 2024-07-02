@@ -3,6 +3,10 @@
 
   let searchString = "";
   let users = [];
+  let selectedUser = null;
+  let startTime = null;
+  let endTime = null;
+  let notes = "";
 
   async function onSearchClick() {
     users = await API.user.search(searchString);
@@ -18,22 +22,31 @@
       <button on:click={onSearchClick}> Search </button>
       <hr />
       {#each users as user}
-        <div>
+        <button
+          style={user == selectedUser
+            ? "background-color:mediumseagreen;"
+            : ""}
+          on:click={() => {
+            selectedUser = user;
+          }}
+        >
           {user.lastName}, {user.firstName}
-        </div>
+        </button>
         <br />
       {/each}
     </div>
     <div style="width: 50%; padding: 8px">
       Start Time: <br />
-      <input type="datetime-local" id="shift-starttime-input" /><br />
+      <input bind:value={startTime} type="datetime-local" id="shift-starttime-input" /><br />
       End Time: <br />
-      <input type="datetime-local" id="shift-endtime-input" /><br />
+      <input bind:value={endTime} type="datetime-local" id="shift-endtime-input" /><br />
       Notes:<br />
-      <textarea style="resize: none" rows="4"></textarea>
+      <textarea bind:value={notes} style="resize: none" rows="4"></textarea>
     </div>
   </div>
-  <button> Schedule </button>
+  <button on:click={()=>{
+    API.shift.create(selectedUser.id, startTime, endTime, notes);
+  }}> Schedule </button>
 </main>
 
 <style>

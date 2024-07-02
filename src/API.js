@@ -23,6 +23,7 @@ export default class API {
       axios.post("/user/logIn", { email, password }).then((response) => {
         if (response.data.success) {
           currentView.set("dashboard");
+          user.set(response.data.user);
         } else {
           alert("Log in failed: " + response.data.message);
         }
@@ -55,4 +56,11 @@ export default class API {
       return response.data.users;
     },
   };
+  static shift = {
+    create:(workerId, startTime, endTime, notes) =>{
+      axios.post("/shift/create", {workerId, startTime, endTime, notes}).then((response)=>{
+        console.log(response);
+      })
+    }
+  }
 }

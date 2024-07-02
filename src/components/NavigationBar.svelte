@@ -5,12 +5,12 @@
   let showMenu = true;
 </script>
 
-
+{#if $user !== null}
   <div id="menu-container">
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
-      on:click={() => {
+    on:click={() => {
         showMenu = !showMenu;
       }}
     >
@@ -30,11 +30,12 @@
             currentView.set("scheduleShift");
           }}
         >
-          Schedule Shit
+          Schedule Shift
         </button>
       </div>
     {/if}
   </div>
+{/if}
 
 <style>
   #menu-container {
