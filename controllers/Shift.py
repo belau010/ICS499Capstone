@@ -18,3 +18,12 @@ def initializeShiftController(app, db):
         except Exception as e:
             print(str(e))
             return jsonify({"success":False,"message":str(e)})
+        
+    @app.route('/shift/readByUser', methods = ['GET'])
+    def readByUser():
+        userId = request.args.get("userId")
+        results = Shift.query.filter_by(workerId=userId)
+        shifts = []
+        for result in results:
+            shifts.append(result.toDict())
+        return jsonify({"success":True, "shifts":shifts})

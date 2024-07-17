@@ -10,7 +10,7 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
-    on:click={() => {
+      on:click={() => {
         showMenu = !showMenu;
       }}
     >
@@ -31,6 +31,13 @@
           }}
         >
           Schedule Shift
+        </button>
+        <button
+          on:click={() => {
+            currentView.set("viewSchedule");
+          }}
+        >
+          View Schedule
         </button>
       </div>
     {/if}

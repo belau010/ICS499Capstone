@@ -7,11 +7,15 @@ from flask_session import Session
 
 app = Flask(__name__)
 CORS(app, origins=["http://localhost:5173", "localhost:5173"], supports_credentials=True)
+# server connects to database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@localhost/ics499capstone'
-app.config["SESSION_PERMANENT"] = True
+# session settings
+app.config["SESSION_PERMANENT"] = True 
 app.config["SESSION_TYPE"] = "filesystem"
 app.config['SECRET_KEY'] = "keyboardcat"
+# session middleware is created 
 Session(app)
+
 db = SQLAlchemy(app)
 db.MODELS = {}
 

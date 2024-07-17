@@ -7,5 +7,10 @@ def initializeShiftModel(db):
         notes = db.Column(db.String(1000), default = "")
         workerId = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
         schedulerId = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+        
+        def toDict(self):
+            columns = self.__table__.columns.keys()
+            result = {column: getattr(self, column) for column in columns}
+            return result 
 
     db.MODELS["Shift"] = Shift

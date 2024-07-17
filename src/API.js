@@ -60,6 +60,20 @@ export default class API {
     create:(workerId, startTime, endTime, notes) =>{
       axios.post("/shift/create", {workerId, startTime, endTime, notes}).then((response)=>{
         console.log(response);
+        if (response.data.success) {
+          alert("Shift successfully scheduled!")
+          currentView.set("dashboard");
+        } else {
+          alert("Shift could not be created.")
+        }
+      })
+    },
+    readByUser:(id, callback) => {
+      axios.get("/shift/readByUser?userId="+id).then((response)=> {
+        console.log(response.data);
+        if(response.data.success) {
+          callback(response.data.shifts);
+        }
       })
     }
   }
