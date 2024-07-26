@@ -8,6 +8,7 @@
   import API from "./API";
   import NavigationBar from "./components/NavigationBar.svelte";
   import ViewSchedule from "./templates/ViewSchedule.svelte";
+  import ShiftPunch from "./templates/ShiftPunch.svelte";
 
   onMount(() => {
     API.init();
@@ -26,6 +27,8 @@
     <ScheduleShift />
   {:else if $currentView === "viewSchedule"}
     <ViewSchedule />
+  {:else if $currentView === "shiftPunch"}
+    <ShiftPunch />
   {/if}
 </main>
 

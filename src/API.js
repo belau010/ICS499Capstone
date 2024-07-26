@@ -57,24 +57,40 @@ export default class API {
     },
   };
   static shift = {
-    create:(workerId, startTime, endTime, notes) =>{
-      axios.post("/shift/create", {workerId, startTime, endTime, notes}).then((response)=>{
-        console.log(response);
-        if (response.data.success) {
-          alert("Shift successfully scheduled!")
-          currentView.set("dashboard");
-        } else {
-          alert("Shift could not be created.")
-        }
-      })
+    create: (workerId, startTime, endTime, notes) => {
+      axios
+        .post("/shift/create", { workerId, startTime, endTime, notes })
+        .then((response) => {
+          console.log(response);
+          if (response.data.success) {
+            alert("Shift successfully scheduled!");
+            currentView.set("dashboard");
+          } else {
+            alert("Shift could not be created.");
+          }
+        });
     },
-    readByUser:(id, callback) => {
-      axios.get("/shift/readByUser?userId="+id).then((response)=> {
+    readByUser: (id, callback) => {
+      axios.get("/shift/readByUser?userId=" + id).then((response) => {
         console.log(response.data);
-        if(response.data.success) {
+        if (response.data.success) {
           callback(response.data.shifts);
         }
-      })
+      });
+    },
+  };
+  static clock = {
+    create: async (isWorking) => {
+      const response = await axios.post("/clock/create");
+      if (!response.data.success) {
+        alert(isWorking?"Clock Out failed!": "Clock in failed!")
+      } else {
+        alert("clock " + (isWorking? "out" : "in") + " successful!")
+      }
+    },
+    checkWorking: async () => {
+      const response = await axios.get("/clock/checkWorking");
+      return response.data.success;
     }
-  }
+  };
 }

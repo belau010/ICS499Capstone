@@ -5,7 +5,7 @@ def initializeShiftController(app, db):
     Shift = db.MODELS["Shift"]
 
     @app.route('/shift/create', methods = ['POST'])
-    def create():
+    def createShift():
         workerId = request.json.get("workerId")
         startTime = request.json.get("startTime")
         endTIme = request.json.get("endTime")
@@ -20,7 +20,7 @@ def initializeShiftController(app, db):
             return jsonify({"success":False,"message":str(e)})
         
     @app.route('/shift/readByUser', methods = ['GET'])
-    def readByUser():
+    def readShiftByUser():
         userId = request.args.get("userId")
         results = Shift.query.filter_by(workerId=userId)
         shifts = []

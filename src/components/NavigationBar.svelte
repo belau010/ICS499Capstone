@@ -39,6 +39,13 @@
         >
           View Schedule
         </button>
+        <button
+          on:click={() => {
+            currentView.set("shiftPunch");
+          }}
+        >
+          Clock In/Out
+        </button>
       </div>
     {/if}
   </div>

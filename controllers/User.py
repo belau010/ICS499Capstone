@@ -56,7 +56,7 @@ def initializeUserController(app, db):
         return jsonify({})
     
     @app.route('/user/search', methods = ['GET'])
-    def search():
+    def searchUser():
         lastName = request.args.get('lastName')
         users = User.query.filter(User.lastName.like(f'%{lastName}%')).all()
         response = []
