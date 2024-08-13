@@ -146,13 +146,18 @@ export default class API {
       return [];
     },
     update: async (id, startTime, endTime, notes) => {
-      const response = await axios.post("/shift/update", {id, startTime, endTime, notes});
+      const response = await axios.post("/shift/update", {
+        id,
+        startTime,
+        endTime,
+        notes,
+      });
       if (response.data.success) {
         alert("Shift successfully updated!");
       } else {
         alert("Shift update failed: " + response.data.message);
       }
-    }
+    },
   };
   static clock = {
     create: async (isWorking) => {
@@ -163,9 +168,26 @@ export default class API {
         alert("clock " + (isWorking ? "out" : "in") + " successful!");
       }
     },
+    update: async (id, timeStamp) => {
+      const response = await axios.post("/clock/update", { id, timeStamp });
+      if (response.data.success) {
+        alert("Clock in/out timestamp successfully changed!");
+      } else {
+        alert("Clock in/out update failed: " + response.data.message);
+      }
+    },
     checkWorking: async () => {
       const response = await axios.get("/clock/checkWorking");
       return response.data.success;
     },
+    readByUser: async(userId) => {
+      const response = await axios.get("/clock/readByUser?userId=" + userId);
+      if (response.data.success) {
+        return response.data.clocks;
+      } else {
+        alert("Failed to get clock ins and outs: " + response.data.message);
+        return [];
+      }
+    }
   };
 }

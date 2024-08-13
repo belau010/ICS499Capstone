@@ -42,6 +42,10 @@
   }
 
   async function onRegisterClick() {
+    if (password != verifyPassword){
+      alert("Passwords do not match")
+      return 
+    }
     registerButton.disabled = true;
     await API.user.register(
       email,

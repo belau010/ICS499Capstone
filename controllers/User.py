@@ -30,14 +30,24 @@ def initializeUserController(app, db):
         position = request.json.get("position")
         forcePasswordChange = request.json.get("forcePasswordChange")
         try:
-            if validate_email(email) and bool(firstName) and bool(lastName) and len(password) >= 8:
-                hashedPassword = generate_password_hash(password, method='pbkdf2:sha512', salt_length=8)
-                newUser = User(email=email,password=hashedPassword,firstName=firstName,lastName=lastName,payRate=payRate,position=position,forcePasswordChange=forcePasswordChange)
-                db.session.add(newUser)
-                db.session.commit()
-                return jsonify({"success":True,"user":{"id": newUser.id, "email": newUser.email}})
-            else:
-                return jsonify({"success":False,"message": "Invalid entry"})
+            #if validate_email(email) and bool(firstName) and bool(lastName) and len(password) >= 8:
+            if not validate_email(email):
+                return jsonify({"success":False,"message":"Invalid email."})
+            if not bool(firstName):
+                return jsonify({"success":False,"message":"First name cannot be blank."})
+            if not bool(lastName):
+                return jsonify({"success":False,"message":"Last name cannot be blank."})
+            if len(password) < 8:
+                return jsonify({"success":False,"message":"Password must be at least 8 characters."})
+            if float(payRate) < 7.25:
+                return jsonify({"success":False,"message":"Pay rate must be at least $7.25."})
+            hashedPassword = generate_password_hash(password, method='pbkdf2:sha512', salt_length=8)
+            newUser = User(email=email,password=hashedPassword,firstName=firstName,lastName=lastName,payRate=payRate,position=position,forcePasswordChange=forcePasswordChange)
+            db.session.add(newUser)
+            db.session.commit()
+            return jsonify({"success":True,"user":{"id": newUser.id, "email": newUser.email}})
+            # else:
+            #    return jsonify({"success":False,"message": "Invalid entry"})
         except Exception as e:
             print(str(e))
             return jsonify({"success":False,"message":str(e)})

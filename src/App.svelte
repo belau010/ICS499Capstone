@@ -13,6 +13,7 @@
   import UpdateUser from "./templates/UpdateUser.svelte";
   import UpdateShift from "./templates/UpdateShift.svelte";
   import ViewFullSchedule from "./templates/ViewFullSchedule.svelte";
+  import EditClockInOut from "./templates/EditClockInOut.svelte";
 
   onMount(() => {
     API.init();
@@ -41,6 +42,8 @@
     <UpdateShift />
   {:else if $currentView === "viewFullSchedule"}
     <ViewFullSchedule />
+  {:else if $currentView === "editClockInOut"}
+    <EditClockInOut />
   {/if}
 </main>
 

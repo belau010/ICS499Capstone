@@ -87,7 +87,7 @@
         {#if $user.position != "ASSOCIATE"}
           <button
             on:click={() => {
-              alert("Not yet available");
+              currentView.set("editClockInOut");
             }}
           >
             Edit Clock Ins/Outs
