@@ -9,6 +9,10 @@
   import NavigationBar from "./components/NavigationBar.svelte";
   import ViewSchedule from "./templates/ViewSchedule.svelte";
   import ShiftPunch from "./templates/ShiftPunch.svelte";
+  import ChangePassword from "./templates/ChangePassword.svelte";
+  import UpdateUser from "./templates/UpdateUser.svelte";
+  import UpdateShift from "./templates/UpdateShift.svelte";
+  import ViewFullSchedule from "./templates/ViewFullSchedule.svelte";
 
   onMount(() => {
     API.init();
@@ -29,6 +33,14 @@
     <ViewSchedule />
   {:else if $currentView === "shiftPunch"}
     <ShiftPunch />
+  {:else if $currentView === "changePassword"}
+    <ChangePassword />
+  {:else if $currentView === "updateUser"}
+    <UpdateUser />
+  {:else if $currentView === "updateShift"}
+    <UpdateShift />
+  {:else if $currentView === "viewFullSchedule"}
+    <ViewFullSchedule />
   {/if}
 </main>
 

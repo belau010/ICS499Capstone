@@ -18,10 +18,6 @@
   function onLogInClick() {
     API.user.logIn(email, password);
   }
-
-  function onCreateAccountClick() {
-    currentView.set("register");
-  }
 </script>
 
 <main>
@@ -41,8 +37,6 @@
     />
     <br />
     <button on:click={onLogInClick}> Log In </button>
-    <br />
-    <button on:click={onCreateAccountClick}> Create Account </button>
   </div>
 </main>
 

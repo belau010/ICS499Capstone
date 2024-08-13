@@ -1,8 +1,11 @@
 <script>
+  import { onMount } from "svelte";
   import { currentView } from "../state";
   import { user } from "../state/user";
+  import { get } from "svelte/store";
 
   let showMenu = true;
+
 </script>
 
 {#if $user !== null}
@@ -25,19 +28,54 @@
         >
           Home
         </button>
-        <button
-          on:click={() => {
-            currentView.set("scheduleShift");
-          }}
-        >
-          Schedule Shift
-        </button>
+        {#if $user.position != "ASSOCIATE"}
+          <button
+            on:click={() => {
+              currentView.set("register");
+            }}
+          >
+            Register New User
+          </button>
+        {/if}
+
+        {#if $user.position == "ADMINISTRATOR"}
+          <button
+            on:click={() => {
+              currentView.set("updateUser");
+            }}
+          >
+            Edit User
+          </button>
+        {/if}
+        {#if $user.position != "ASSOCIATE"}
+          <button
+            on:click={() => {
+              currentView.set("scheduleShift");
+            }}
+          >
+            Schedule Shift
+          </button>
+          <button
+            on:click={() => {
+              currentView.set("updateShift");
+            }}
+          >
+            Edit Shift
+          </button>
+        {/if}
         <button
           on:click={() => {
             currentView.set("viewSchedule");
           }}
         >
-          View Schedule
+          View My Schedule
+        </button>
+        <button
+          on:click={() => {
+            currentView.set("viewFullSchedule");
+          }}
+        >
+          View Full Schedule
         </button>
         <button
           on:click={() => {
@@ -46,6 +84,15 @@
         >
           Clock In/Out
         </button>
+        {#if $user.position != "ASSOCIATE"}
+          <button
+            on:click={() => {
+              alert("Not yet available");
+            }}
+          >
+            Edit Clock Ins/Outs
+          </button>
+        {/if}
       </div>
     {/if}
   </div>

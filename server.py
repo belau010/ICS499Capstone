@@ -20,7 +20,6 @@ db = SQLAlchemy(app)
 db.MODELS = {}
 
 initializeModels(db)
-initializeControllers(app, db)
 
 @app.route("/")
 def base():
@@ -33,4 +32,5 @@ def home(path):
 if __name__=='__main__':
     with app.app_context():
         db.create_all()
+        initializeControllers(app, db)
     app.run(debug=True)

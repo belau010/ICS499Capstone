@@ -1,6 +1,9 @@
 <script>
+// @ts-nocheck
+
   import { currentView } from "../state";
   import API from "../API";
+  import { onMount } from "svelte";
 
   // @ts-nocheck
 
@@ -9,6 +12,14 @@
   let verifyPassword = "";
   let firstName = "";
   let lastName = "";
+  let payRate = 15.0;
+  let position = "associate";
+  let forcePasswordChange = true;
+  let registerButton = null;
+
+  onMount(() => {
+    registerButton = document.getElementById("register-button");
+  });
 
   function onEmailInput(event) {
     email = event.target.value;
@@ -30,8 +41,26 @@
     lastName = event.target.value;
   }
 
-  function onRegisterClick() {
-    API.user.register(email, firstName, lastName, password);
+  async function onRegisterClick() {
+    registerButton.disabled = true;
+    await API.user.register(
+      email,
+      firstName,
+      lastName,
+      password,
+      payRate,
+      position,
+      forcePasswordChange
+    );
+    registerButton.disabled = false;
+    email = "";
+    password = "";
+    verifyPassword = "";
+    firstName = "";
+    lastName = "";
+    payRate = 15.0;
+    position = "associate";
+    forcePasswordChange = true;
   }
 
   function onLogInClick() {
@@ -76,9 +105,30 @@
       on:input={onVerifyPasswordInput}
     />
     <br />
-    <button on:click={onRegisterClick}> Register </button>
-    <br />
-    <button on:click={onLogInClick}> Back </button>
+    Pay Rate 
+    <input
+      type="number"
+      placeholder="Pay Rate"
+      value={payRate}
+      on:input={(e) => {
+        payRate = e.target.value;
+      }}
+      />
+      <br />
+      Position 
+      <select bind:value={position}>
+        <option value="associate">Associate</option>
+        <option value="manager">Manager</option>
+        <option value="administrator">Administrator</option>
+      </select>
+      <br />
+      Force user to change password upon next log in 
+      <input
+        type="checkbox"
+        bind:checked={forcePasswordChange}
+        />
+        <br />
+    <button id="register-button" on:click={onRegisterClick}> Register </button>
   </div>
 </main>
 
