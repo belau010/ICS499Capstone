@@ -1,7 +1,7 @@
 from flask import jsonify, request, session
 
 def initializeClockController(app, db):
-    print("initializing user controller...")
+    print("initializing clock controller...")
     Clock = db.MODELS["Clock"]
 
     @app.route('/clock/create', methods = ['POST'])

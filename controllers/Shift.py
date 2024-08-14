@@ -2,7 +2,7 @@ from datetime import datetime
 from flask import jsonify, request, session
 
 def initializeShiftController(app, db):
-    print("initializing user controller...")
+    print("initializing shift controller...")
     Shift = db.MODELS["Shift"]
     User = db.MODELS["User"]
 
